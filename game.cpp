@@ -1,17 +1,26 @@
 #include <iostream>
 
-void PrintIntroduction()
+void PrintIntroduction(int Difficulty)
 {
-    // On game load, displayed welcome message to user
-    std::cout << "\n Waking up to the sound of your jail cell door unlocking, you leave to find the placed deserted \n";
-    std::cout << "The only way you can escape is to get through some strange doors locked with number codes and puzzles \n";
-    std::cout << "Splashed on the walls in what might be blood is the message, 'Three numbers is all i needed' \n";
-    std::cout << "There is nobody around.... i wonder who did this?! \n\n";
+    if (Difficulty == 1)
+    {
+        // On game load, displayed welcome message to user
+        std::cout << "\n Waking up to the sound of your jail cell door unlocking, you leave to find the placed deserted \n";
+        std::cout << "The only way you can escape is to get through some strange doors locked with number codes and puzzles \n";
+        std::cout << "Splashed on the walls in what might be blood is the message, 'Three numbers is all i needed' \n";
+        std::cout << "There is nobody around.... i wonder who did this?! \n\n";
+    }
+    else
+    {
+        std::cout << "The next door terminal reads core level " << Difficulty << std::endl;
+        std::cout << " I'm closer now \n\n";
+    }
 }
 
-void PlayGame()
+bool PlayGame(int Difficulty)
 {
-    PrintIntroduction();
+
+    PrintIntroduction(Difficulty);
 
     // Variables
     int CodeA = 4;
@@ -39,20 +48,30 @@ void PlayGame()
     if (CodeSum == GuessSum && CodeProduct == GuessProduct)
     {
         std::cout << "The door flies open, sounds of sirens sound in the distance. There's more ahead, one step closer \n";
+        return true;
     }
     else
     {
         std::cout << "The door seals shut, what more can you do? The door controls are flashing and no matter how much jabbing it doesn't respond \n";
+        return false;
     }
 }
 
 int main()
 {
+    int LevelDifficulty = 1;
+    const int MaxDifficulty = 8; 
+
     while (true)
     {
-        PlayGame();
+        bool bLevelComplete = PlayGame(LevelDifficulty);
         std::cin.clear();
         std::cin.ignore();
+
+        if (bLevelComplete)
+        {
+            ++LevelDifficulty;
+        }
     }
 
     return 0;
