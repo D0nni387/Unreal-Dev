@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 void PrintIntroduction(int Difficulty)
 {
@@ -23,9 +24,9 @@ bool PlayGame(int Difficulty)
     PrintIntroduction(Difficulty);
 
     // Variables
-    int CodeA = 4;
-    int CodeB = 3;
-    int CodeC = 1;
+    int CodeA = rand() % Difficulty + Difficulty;
+    int CodeB = rand() % Difficulty + Difficulty;
+    int CodeC = rand() % Difficulty + Difficulty;
 
     int CodeSum = CodeA + CodeB + CodeC;
     int CodeProduct = CodeA * CodeB * CodeC;
@@ -47,22 +48,30 @@ bool PlayGame(int Difficulty)
     // Check if the correct answer is inputted
     if (CodeSum == GuessSum && CodeProduct == GuessProduct)
     {
-        std::cout << "The door flies open, sounds of sirens sound in the distance. There's more ahead, one step closer \n";
-        return true;
+        if (Difficulty == 5)
+        {
+            std::cout << "The last door flies open, fresh air draws into your lungs, the sound of birds chirping echo in your ears... This place is deserted.... what now? \n";
+        }
+        else
+        {
+            std::cout << "The door flies open, sounds of sirens sound in the distance. There's more ahead, one step closer \n\n";
+            return true;
+        }
     }
     else
     {
-        std::cout << "The door seals shut, what more can you do? The door controls are flashing and no matter how much jabbing it doesn't respond \n";
+        std::cout << "The door seals shut, what more can you do? The door controls are flashing and restarting, i still have a chance here! \n\n";
         return false;
     }
 }
 
 int main()
 {
+    srand(time(NULL));
     int LevelDifficulty = 1;
-    const int MaxDifficulty = 8; 
+    const int MaxDifficulty = 5;
 
-    while (true)
+    while (LevelDifficulty <= MaxDifficulty)
     {
         bool bLevelComplete = PlayGame(LevelDifficulty);
         std::cin.clear();
